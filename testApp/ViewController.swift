@@ -35,6 +35,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate,UIPickerViewDe
     static var storeAdress = NSMutableArray()
     static var storeNum = NSMutableArray()
     static var storeTime = NSMutableArray()
+    static var storeStation =  NSMutableArray()
+    static var storeStationExit = NSMutableArray()
+    static var storeWalk = NSMutableArray()
+    static var storePr = NSMutableArray()
+    
+    //ヒット数の格納用変数
+    static var storeHit = Int()
     
     var storeLatitude = NSMutableArray()
     var storeLongitude = NSMutableArray()
@@ -171,13 +178,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate,UIPickerViewDe
                     
                     self.storeLatitude[i] = json["rest"][i]["latitude"].doubleValue
                     self.storeLongitude[i] = json["rest"][i]["longitude"].doubleValue
+                    ViewController.storeHit = json["total_hit_count"].intValue
                     ViewController.self.storeInfoName[i] = json["rest"][i]["name"].stringValue
                     ViewController.self.storeInfoPic[i] = json["rest"][i]["image_url"]["shop_image1"].stringValue
                     ViewController.self.storeAdress[i] = json["rest"][i]["address"].stringValue
                     ViewController.self.storeNum[i] = json["rest"][i]["tel"].stringValue
                     ViewController.storeTime[i] = json["rest"][i]["opentime"].stringValue
+                    ViewController.storeStation[i] = json["rest"][i]["access"]["station"].stringValue
+                    ViewController.storeStationExit[i] = json["rest"][i]["access"]["station_exit"].stringValue
+                    ViewController.storeWalk[i] = json["rest"][i]["access"]["walk"].stringValue
+                    ViewController.storePr[i] = json["rest"][i]["pr"]["pr_short"].stringValue
                 }
                 
+                print(ViewController.self.storeInfoName.count)
             }
             catch{
                 print("error")

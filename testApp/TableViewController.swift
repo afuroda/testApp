@@ -11,46 +11,72 @@ import UIKit
 class TableViewController: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     
+    var tableView = UITableView()
+    
     //cellの番号格納用変数
     static var cellNum = 0
     
+    //cellの高さ変更
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        self.view.bounds.height / 8
+    }
+    
+    //cellの個数取得
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ViewController.storeInfoName.count
+        if ViewController.storeHit < 10{
+            return ViewController.storeHit
+        }else{
+            return 10
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        cell.textLabel?.textAlignment = .center
-        cell.textLabel!.text = ViewController.storeInfoName[indexPath.row] as? String
+        // セルのインスタンスの作成
+        let cell = tableView.dequeueReusableCell(
+          withIdentifier: "CustomCell",
+          for: indexPath as IndexPath
+        ) as! CustomCell
+        // cellオブジェクトのLabelに値をセット。
+        cell.NameLabel.textAlignment = .center
+        cell.NameLabel.adjustsFontSizeToFitWidth = true
+        cell.NameLabel.text = ViewController.storeInfoName[indexPath.row] as? String
         
-        let storeImageView = UIImageView(frame: CGRect(x: self.view.bounds.width/20, y: 0, width: self.view.bounds.width/10, height: self.view.bounds.height/15))
-         
-         storeImageView.contentMode = .scaleAspectFit
-         
         //画像URLの有無を確かめる
-        if (ViewController.storeInfoPic[indexPath.row] as! String).isEmpty == false{
-            let storeImageUrl = URL(string: ViewController.storeInfoPic[indexPath.row] as! String)
-            var data = Data()
+                if (ViewController.storeInfoPic[indexPath.row] as! String).isEmpty == false{
+                    let storeImageUrl = URL(string: ViewController.storeInfoPic[indexPath.row] as! String)
+                    var data = Data()
+        
+                    do{
+                        data = try Data(contentsOf: storeImageUrl!)
+                    }catch{
+                        print("error")
+                    }
+                    let storeImage = UIImage(data: data)
+        
+                    cell.ImageLabel.image = storeImage
+                }else{
+                    //画像がない場合NoImageを表示させる
+                    cell.ImageLabel.image = UIImage(named: "noImage.jpg")
+                }
+        
+       
+        cell.AccessLabel2.text = "最寄駅 \(ViewController.storeStation[indexPath.row] as! String) \(ViewController.storeStationExit[indexPath.row] as! String)から徒歩\(ViewController.storeWalk[indexPath.row] as! String)分"
+        
+        
+        //アクセスlabelの記述処理
+        if Int(ViewController.storeWalk[indexPath.row] as! String) == nil{
+        cell.AccessLabel2.text = "最寄駅 \(ViewController.storeStation[indexPath.row] as! String) \(ViewController.storeStationExit[indexPath.row] as! String)から\(ViewController.storeWalk[indexPath.row] as! String)分"
             
-            do{
-                data = try Data(contentsOf: storeImageUrl!)
-            }catch{
-                print("error")
-            }
-            let storeImage = UIImage(data: data)
-            
-            storeImageView.image = storeImage
-        }else{
-            //画像がない場合NoImageを表示させる
-            storeImageView.image = UIImage(named: "noImage.jpg")
         }
         
-        cell.contentView.addSubview(storeImageView)
-        cell.tag = indexPath.row
-        
+        if ((ViewController.storeStation[indexPath.row] as AnyObject) as! String) == "" && ((ViewController.storeStationExit[indexPath.row] as AnyObject) as! String) == "" && ((ViewController.storeWalk[indexPath.row] as AnyObject) as! String) == ""{
+            cell.AccessLabel2.text = "記載なし"
+        }
         
         return cell
+
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -63,8 +89,17 @@ class TableViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
         
+        self.tableView.register(
+          CustomCell.self,
+          forCellReuseIdentifier: "CustomCell"
+        )
         
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        self.view.addSubview(tableView)
 
         // Do any additional setup after loading the view.
     }

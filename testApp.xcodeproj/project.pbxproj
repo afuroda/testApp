@@ -11,6 +11,7 @@
 		1E5236142444BDB5007DD90A /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5236132444BDB5007DD90A /* TableViewController.swift */; };
 		1E5236162444C643007DD90A /* CellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5236152444C643007DD90A /* CellViewController.swift */; };
 		1E5236182444D102007DD90A /* noImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1E5236172444D102007DD90A /* noImage.jpg */; };
+		1E523622244582E1007DD90A /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E523621244582E1007DD90A /* CustomCell.swift */; };
 		1EF5E30824350611002F3667 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF5E30724350611002F3667 /* AppDelegate.swift */; };
 		1EF5E30A24350611002F3667 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF5E30924350611002F3667 /* SceneDelegate.swift */; };
 		1EF5E30C24350611002F3667 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF5E30B24350611002F3667 /* ViewController.swift */; };
@@ -45,6 +46,7 @@
 		1E5236132444BDB5007DD90A /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		1E5236152444C643007DD90A /* CellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewController.swift; sourceTree = "<group>"; };
 		1E5236172444D102007DD90A /* noImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = noImage.jpg; sourceTree = "<group>"; };
+		1E523621244582E1007DD90A /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		1EDDEF0F0360A90AB046B1AC /* Pods_testAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_testAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EF5E30424350611002F3667 /* testApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EF5E30724350611002F3667 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				1EF5E31524350614002F3667 /* Info.plist */,
 				1E5236132444BDB5007DD90A /* TableViewController.swift */,
 				1E5236152444C643007DD90A /* CellViewController.swift */,
+				1E523621244582E1007DD90A /* CustomCell.swift */,
 			);
 			path = testApp;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				1EF5E30C24350611002F3667 /* ViewController.swift in Sources */,
 				1EF5E30824350611002F3667 /* AppDelegate.swift in Sources */,
 				1EF5E30A24350611002F3667 /* SceneDelegate.swift in Sources */,
+				1E523622244582E1007DD90A /* CustomCell.swift in Sources */,
 				1E5236142444BDB5007DD90A /* TableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

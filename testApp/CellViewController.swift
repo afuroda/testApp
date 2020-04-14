@@ -10,31 +10,70 @@ import UIKit
 
 
 class CellViewController: UIViewController {
+    
+    var count = 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        makeBackLabel()
         makeNameLabel()
         makeAddressLabel()
         makeImage()
         makeNumLabel()
         makeTimeLabel()
+        makePrLabel()
 
         // Do any additional setup after loading the view.
     }
     
     
+    //背景色変更
+    func makeBackLabel(){
+        let backLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
+        backLabel.backgroundColor = .orange
+        backLabel.layer.position = CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height / 2)
+        self.view.addSubview(backLabel)
+    }
     
     //名称Label
     func makeNameLabel(){
         let nameLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height/10))
         nameLabel.text = ViewController.storeInfoName[TableViewController.cellNum] as? String
+        nameLabel.adjustsFontSizeToFitWidth = true
         nameLabel.layer.position = CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height / 40)
         nameLabel.textAlignment = .center
         self.view.addSubview(nameLabel)
         
         
         
+    }
+    
+    //prlabel
+    func makePrLabel(){
+        let prLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width / 1.29, height: self.view.bounds.height/7.5))
+        prLabel.numberOfLines = 0
+        prLabel.lineBreakMode = .byWordWrapping
+        prLabel.text = ViewController.storePr[TableViewController.cellNum] as? String
+        if ViewController.storePr[TableViewController.cellNum] as? String == ""{
+            prLabel.text = "記載なし"
+        }
+        prLabel.layer.position = CGPoint(x: self.view.bounds.width/1.67, y: self.view.bounds.height / 1.67)
+            
+            prLabel.layer.borderWidth = 2
+            prLabel.layer.borderColor = UIColor.yellow.cgColor
+            prLabel.adjustsFontSizeToFitWidth = true
+            prLabel.textAlignment = .center
+            self.view.addSubview(prLabel)
+            
+        let prLabel2 = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width / 5, height: self.view.bounds.height/7.5))
+            prLabel2.text = "PR文"
+            prLabel2.textAlignment = .center
+            prLabel2.backgroundColor = .lightGray
+            prLabel2.layer.borderWidth = 2
+            prLabel2.layer.borderColor = UIColor.yellow.cgColor
+            prLabel2.layer.position = CGPoint(x: self.view.bounds.width/9, y: self.view.bounds.height / 1.67)
+            self.view.addSubview(prLabel2)
     }
     
     //住所Label
@@ -84,7 +123,7 @@ class CellViewController: UIViewController {
     func makeTimeLabel(){
         
         //改行の有無とその数を調べる
-        var count = 1
+        count = 1
         let str = "\(ViewController.storeTime[TableViewController.cellNum] as? String)"
         var nextRange = str.startIndex..<str.endIndex
         while let range = str.range(of: #"\"#, options: .caseInsensitive, range: nextRange) {
@@ -97,15 +136,18 @@ class CellViewController: UIViewController {
         //改行回数
         timeLabel.numberOfLines = count
         timeLabel.text = ViewController.storeTime[TableViewController.cellNum] as? String
+        if ViewController.storeTime[TableViewController.cellNum] as? String == ""{
+            timeLabel.text = "記載なし"
+        }
         let bar = self.view.bounds.height / 15
         
         
         if count == 1{
             //改行なしの場合のLabelの位置
-            timeLabel.layer.position = CGPoint(x: self.view.bounds.width/1.67, y: self.view.bounds.height / 1.77)
+            timeLabel.layer.position = CGPoint(x: self.view.bounds.width/1.67, y: self.view.bounds.height / 1.43)
         }else{
             //改行ありの場合のLabelの位置
-            timeLabel.layer.position = CGPoint(x: self.view.bounds.width/1.67, y: self.view.bounds.height / 1.77 + bar * CGFloat((count-1))/2)
+            timeLabel.layer.position = CGPoint(x: self.view.bounds.width/1.67, y: self.view.bounds.height / 1.43 + bar * CGFloat((count-1))/2)
         }
         
         timeLabel.layer.borderWidth = 2
@@ -116,16 +158,14 @@ class CellViewController: UIViewController {
         
         let timeLabel2 = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width / 5, height: self.view.bounds.height/15 * CGFloat(count)))
         
-        //改行回数
-        
         timeLabel2.text = "営業時間"
         
         if count == 1{
             //改行なしの場合のLabel2の位置
-            timeLabel2.layer.position = CGPoint(x: self.view.bounds.width/9, y: self.view.bounds.height / 1.77)
+            timeLabel2.layer.position = CGPoint(x: self.view.bounds.width/9, y: self.view.bounds.height / 1.43)
         }else{
             //改行ありの場合のLabel2の位置
-            timeLabel2.layer.position = CGPoint(x: self.view.bounds.width/9, y: self.view.bounds.height / 1.77 + bar * CGFloat((count-1))/2)
+            timeLabel2.layer.position = CGPoint(x: self.view.bounds.width/9, y: self.view.bounds.height / 1.43 + bar * CGFloat((count-1))/2)
         }
         
         timeLabel2.layer.borderWidth = 2
